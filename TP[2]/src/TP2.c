@@ -20,6 +20,8 @@ int main(void) {
 	int validacionInit;
 	int validacionAgregado;
 	int validacionBusca;
+	int validacionRemover;
+	int opcionOrdenar;
 	int opcion;
 	int respuesta;
 	int i = 0;
@@ -30,7 +32,7 @@ int main(void) {
 
 	if(validacionInit==0){
 		do{
-			respuesta=utn_getNumero(&opcion, "\n1-cargar pasajeros. \n2-Buscar pasajero. ",0,4);
+			respuesta=utn_getNumero(&opcion, "\n1-cargar pasajeros. \n2-Buscar pasajero. \n3-Remover pasajero. \n4-Ordenar pasajeros. ",0,4);
 			if(respuesta == 0){
 				switch(opcion){
 				case 1:
@@ -41,6 +43,17 @@ int main(void) {
 
 				case 2:
 						validacionBusca=findPassengerById(arrayPasajeros, PASAJEROS, arrayPasajeros[i].id);
+						break;
+
+
+				case 3:
+						validacionRemover=removePassenger(arrayPasajeros, PASAJEROS, arrayPasajeros[i].id);
+						break;
+
+				case 4:
+						utn_getNumero(&opcionOrdenar,"1(ascendete) o 2(descendente): ", 0, 1);
+
+						break;
 				}
 			}
 		}while(opcion != 3);

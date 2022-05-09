@@ -84,4 +84,17 @@ find a passenger] - (0) if Ok
 */
 int removePassenger(Passenger* list, int len, int id);
 
+
+/** \brief Sort the elements in the array of passengers, the argument order
+indicate UP or DOWN order
+*
+* \param list Passenger*
+* \param len int
+* \param order int [1] indicate UP - [0] indicate DOWN
+* \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
+int sortPassengers(Passenger* list, int len, int order);
+
+//ALTA FORZADA DE PASAJEROS
 #endif /* ARRAYPASSENGERS_H_ */

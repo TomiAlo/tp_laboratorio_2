@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "arrayPassengers.h"
 
 #define ELEMENTS 51
@@ -226,7 +227,7 @@ int initPassengers(Passenger* list, int len)
 			strcpy(list[i].lastName,"lastName");
 			list[i].price=0;
 			strcpy(list[i].flycode,"flycode");
-			list[i].typePassenger=0;;
+			list[i].typePassenger=0;
 			list[i].isEmpty=0;
 		}
 		retorno=0;
@@ -323,6 +324,51 @@ int findPassengerById(Passenger* list, int len,int id){
 			retorno=buffer;
 		}
 	}
+
+	return retorno;
+}
+
+
+int removePassenger(Passenger* list, int len, int id){
+
+	int retorno=-1;
+	int buffer;
+	int validacion;
+
+	validacion=utn_getNumero(&buffer, "Que id quiere eliminar? ", 0, len);
+	if(validacion==0){
+		if(list[buffer].isEmpty==1){
+			list[buffer].isEmpty=0;
+			printf("Eliminado correctamente");
+			retorno=0;
+		}
+		else if(list[buffer].isEmpty==0){
+			printf("En este id no hay registrado ningun pasajero");
+			retorno=-1;
+		}
+	}
+
+	return retorno;
+}
+
+
+int sortPassengers(Passenger* list, int len, int order){
+
+	int retorno=-1;
+	int contadorPasajeros;
+	int contadorLetrasDeApellidos;
+
+	for(contadorPasajeros=0; contadorPasajeros<len; contadorPasajeros++){
+		if(list[contadorPasajeros].isEmpty!=0){
+			if(order==1){
+				for(contadorLetrasDeApellidos=0; contadorLetrasDeApellidos < strlen(list[contadorPasajeros].lastName);contadorLetrasDeApellidos++){
+					tolower(&list[contadorPasajeros].lastName[contadorLetrasDeApellidos]);
+				}
+			}
+		}
+	}
+
+
 
 	return retorno;
 }
