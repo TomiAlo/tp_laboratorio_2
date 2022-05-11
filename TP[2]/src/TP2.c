@@ -58,7 +58,7 @@ int main(void) {
 						break;
 
 				case 4:
-						utn_getNumero(&opcionOrdenar,"0(ascendete) o 1(descendente): ", 0, 1);
+						utn_getNumero(&opcionOrdenar,"0(ascendete) o 1(descendente): ", 0, 2);
 						validacionOrdenar=sortPassengers(arrayPasajeros, PASAJEROS, opcionOrdenar);
 						break;
 
@@ -73,7 +73,7 @@ int main(void) {
 						break;
 
 				case 7:
-						altaForzada(arrayPasajeros, PASAJEROS);
+						altaForzada(arrayPasajeros, PASAJEROS, i);
 						break;
 
 				}

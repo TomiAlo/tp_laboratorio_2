@@ -124,6 +124,7 @@ int sortPassengersByCode(Passenger* list, int len, int order);
  * carga forzada de pasajeros
  * @param list passenger*
  * @param len limite
+ * @param i es a partir de donde se puede cargar un pasajero
  */
-void altaForzada(Passenger* list, int len);
+void altaForzada(Passenger* list, int len , int i);
 #endif /* ARRAYPASSENGERS_H_ */

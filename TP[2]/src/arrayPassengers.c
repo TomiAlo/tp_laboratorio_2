@@ -398,6 +398,9 @@ int sortPassengers(Passenger* list, int len, int order){
 	int bufferInt[len];
 	int flag=0;
 
+	char auxiliarLastName[len][ELEMENTS];
+	int auxiliarType[len];
+
 	if(list!=NULL && len>0){
 		for(k=0; k<len; k++){
 			if(list[k].isEmpty!=0){
@@ -409,46 +412,56 @@ int sortPassengers(Passenger* list, int len, int order){
 			}
 		}
 
+		for(i=0;i<len;i++){
+			if(list[i].typePassenger!=0){
+				strcpy(auxiliarLastName[i],list[i].lastName);
+				auxiliarType[i]=list[i].typePassenger;
+			}
+		}
 		if(flag==1){
 			if(order==0){
 				for(i=0; i<len; i++){
-					for(j=0; j<len; j++){
-						if(strcoll(list[i].lastName,list[j].lastName)<0){
-						strcpy(bufferChar[i],list[i].lastName);
-						strcpy(list[i].lastName,list[j].lastName);
-						strcpy(list[j].lastName,bufferChar[i]);
+					for(j=i+1; j<len-1; j++){
+						if(strcmp(auxiliarLastName[i],auxiliarLastName[j])>0){
 
-						bufferInt[i]=list[i].typePassenger;
-						list[i].typePassenger=list[j].typePassenger;
-						list[j].typePassenger=bufferInt[i];
+						strcpy(bufferChar[i],auxiliarLastName[i]);
+						strcpy(auxiliarLastName[i],auxiliarLastName[j]);
+						strcpy(auxiliarLastName[j],bufferChar[i]);
+
+						bufferInt[i]=auxiliarType[i];
+						auxiliarType[i]=auxiliarType[j];
+						auxiliarType[j]=bufferInt[i];
+
 						}
 					}
 				}
 				printf("\nlista de pasajeros ordenada por apellido de manera ascendente: \n");
 				for(i=0;i<len;i++){
 					if(list[i].typePassenger!=0){
-						printf("apellido: %s, tipo de pasajero: %d\n",list[i].lastName, list[i].typePassenger);
+						printf("apellido: %s, tipo de pasajero: %d\n",auxiliarLastName[i], auxiliarType[i]);
 					}
 				}
 			}
-			else if(order==1){
-				for(i=0; i<len; i++){
-					for(j=0; j<len; j++){
-						if(strcoll(list[i].lastName,list[j].lastName)>0){
-						strcpy(bufferChar[i],list[i].lastName);
-						strcpy(list[i].lastName,list[j].lastName);
-						strcpy(list[j].lastName,bufferChar[i]);
 
-						bufferInt[i]=list[i].typePassenger;
-						list[i].typePassenger=list[j].typePassenger;
-						list[j].typePassenger=bufferInt[i];
+			else if(order!=0){
+				for(i=0; i<len; i++){
+					for(j=i+1; j<len-1; j++){
+						if(strcmp(auxiliarLastName[i],auxiliarLastName[j])<0){
+							strcpy(bufferChar[i],auxiliarLastName[i]);
+							strcpy(auxiliarLastName[i],auxiliarLastName[j]);
+							strcpy(auxiliarLastName[j],bufferChar[i]);
+
+							bufferInt[i]=auxiliarType[i];
+							auxiliarType[i]=auxiliarType[j];
+							auxiliarType[j]=bufferInt[i];
+
 						}
 					}
 				}
-				printf("\nlista de pasajeros ordenada por apellido de manera ascendente: \n");
+				printf("\nlista de pasajeros ordenada por apellido de manera descendente: \n");
 				for(i=0;i<len;i++){
 					if(list[i].typePassenger!=0){
-						printf("apellido: %s, tipo de pasajero: %d\n",list[i].lastName, list[i].typePassenger);
+						printf("apellido: %s, tipo de pasajero: %d\n",auxiliarLastName[i], auxiliarType[i]);
 					}
 				}
 			}
@@ -468,6 +481,7 @@ int printPassenger(Passenger* list, int len){
 
 	if(list!=NULL && len>0){
 
+
 		for(k=0; k<len; k++){
 			if(list[k].isEmpty!=0){
 				flag=1;
@@ -477,6 +491,7 @@ int printPassenger(Passenger* list, int len){
 				return -1;
 			}
 		}
+
 
 		if(flag==1){
 			for(i=0;i<len;i++){
@@ -501,6 +516,8 @@ int sortPassengersByCode(Passenger* list, int len, int order){
 	int k;
 	int i;
 	int j;
+	char auxiliarCode[len][FLYCODE_MAX];
+	int auxiliarStatus[len];
 
 	if(list!=NULL && len>0){
 
@@ -514,63 +531,71 @@ int sortPassengersByCode(Passenger* list, int len, int order){
 			}
 		}
 
+		for(i=0;i<len;i++){
+			if(list[i].statusFlight!=0){
+				strcpy(auxiliarCode[i],list[i].flycode);
+				auxiliarStatus[i]=list[i].statusFlight;
+				printf("%s",auxiliarCode[i]);
+			}
+		}
+
 		if(flag==1){
 			if(order==0){
 				for(i=0; i<len; i++){
-					for(j=0; j<len; j++){
-						if(strcoll(list[i].flycode,list[j].flycode)<0){
-						strcpy(bufferChar[i],list[i].flycode);
-						strcpy(list[i].flycode,list[j].flycode);
-						strcpy(list[j].flycode,bufferChar[i]);
+					for(j=i+1; j<len-1; j++){
+						if(strcmp(auxiliarCode[i],auxiliarCode[j])>0){
+							strcpy(bufferChar[i],auxiliarCode[i]);
+							strcpy(auxiliarCode[i],auxiliarCode[j]);
+							strcpy(auxiliarCode[j],bufferChar[i]);
 
-						bufferInt[i]=list[i].statusFlight;
-						list[i].statusFlight=list[j].statusFlight;
-						list[j].statusFlight=bufferInt[i];
+							bufferInt[i]=auxiliarStatus[i];
+							auxiliarStatus[i]=auxiliarStatus[j];
+							auxiliarStatus[j]=bufferInt[i];
 						}
 					}
 				}
 				printf("\nlista de pasajeros ordenada por codigo de vuelo de manera ascendente: \n");
 				for(i=0;i<len;i++){
 					if(list[i].statusFlight!=0){
-						printf("codigo de vuelo: %s, estado de vuelo: %d\n",list[i].lastName, list[i].statusFlight);
+						printf("codigo de vuelo: %s, estado de vuelo: %d\n",auxiliarCode[i], auxiliarStatus[i]);
 					}
 				}
 			}
 			else if(order==1){
 				for(i=0; i<len; i++){
-					for(j=0; j<len; j++){
-						if(strcoll(list[i].flycode,list[j].flycode)>0){
-						strcpy(bufferChar[i],list[i].flycode);
-						strcpy(list[i].flycode,list[j].flycode);
-						strcpy(list[j].flycode,bufferChar[i]);
+					for(j=i+1; j<len-1; j++){
+						if(strcmp(auxiliarCode[i],auxiliarCode[j])<0){
+							strcpy(bufferChar[i],auxiliarCode[i]);
+							strcpy(auxiliarCode[i],auxiliarCode[j]);
+							strcpy(auxiliarCode[j],bufferChar[i]);
 
-						bufferInt[i]=list[i].statusFlight;
-						list[i].statusFlight=list[j].statusFlight;
-						list[j].statusFlight=bufferInt[i];
+							bufferInt[i]=auxiliarStatus[i];
+							auxiliarStatus[i]=auxiliarStatus[j];
+							auxiliarStatus[j]=bufferInt[i];
 						}
 					}
 				}
-				printf("\nlista de pasajeros ordenada por codigo de vuelo de manera descendente: \n");
-				for(i=0;i<len;i++){
-					if(list[i].statusFlight!=0){
-						printf("codigo de vuelo: %s, estado de vuelo: %d\n",list[i].lastName, list[i].statusFlight);
+					printf("\nlista de pasajeros ordenada por codigo de vuelo de manera descendente: \n");
+					for(i=0;i<len;i++){
+						if(list[i].statusFlight!=0){
+							printf("codigo de vuelo: %s, estado de vuelo: %d\n",auxiliarCode[i], auxiliarStatus[i]);
+						}
 					}
 				}
+				retorno=0;
 			}
-			retorno=0;
+
 		}
-	}
+
+
 	return retorno;
 }
 
-
-void altaForzada(Passenger* list, int len){
-
-	int i;
+void altaForzada(Passenger* list, int len , int i){
 
 	if(!(list==NULL && len <= 0)){
 
-		for(i=0;i<len;i++){
+		for(;i<len;i++){
 			list[i].id=i;
 			strcpy(list[i].name,"tomas");
 			strcpy(list[i].lastName,"alonso");
