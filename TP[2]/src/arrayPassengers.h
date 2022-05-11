@@ -19,6 +19,7 @@ typedef struct
 	float price;
 	char flycode[10];
 	int typePassenger;
+	int statusFlight;
 	int isEmpty;
 
 }Passenger;
@@ -48,7 +49,7 @@ int initPassengers(Passenger* list, int len);
 free space] - (0) if Ok
 */
 int addPassenger(Passenger* list, int len, int id, char name[],char
-lastName[],float price,int typePassenger, char flycode[]);
+lastName[],float price,int typePassenger, char flycode[], int statusFlight);
 
 
 /** \brief find a Passenger by Id en returns the index position in array.
@@ -96,5 +97,33 @@ indicate UP or DOWN order
 */
 int sortPassengers(Passenger* list, int len, int order);
 
-//ALTA FORZADA DE PASAJEROS
+/** \brief print the content of passengers array
+*
+* \param list Passenger*
+* \param length int
+* \return int
+*
+*/
+int printPassenger(Passenger* list, int len);
+
+
+
+/** \brief Sort the elements in the array of passengers, the argument order
+indicate UP or DOWN order
+*
+* \param list Passenger*
+* \param len int
+* \param order int [1] indicate UP - [0] indicate DOWN
+* * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
+*
+*/
+int sortPassengersByCode(Passenger* list, int len, int order);
+
+
+/**
+ * carga forzada de pasajeros
+ * @param list passenger*
+ * @param len limite
+ */
+void altaForzada(Passenger* list, int len);
 #endif /* ARRAYPASSENGERS_H_ */
